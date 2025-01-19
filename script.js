@@ -9,19 +9,23 @@ function handleNo() {
     noClickCount++;
     const yesButton = document.getElementById("yes-button");
     const noButton = document.getElementById("no-button");
+    const mainHeading = document.querySelector(".main-heading");
+    const buttonsContainer = document.querySelector(".buttons");
 
     if (noClickCount >= 10) {
-        // Hide the "No" button and make "Yes" full-screen with a solid background
+        // Hide the "No" button and make "Yes" full-screen
         noButton.style.display = "none";
         yesButton.classList.add("fullscreen-yes");
         yesButton.innerText = "YES!";
+        mainHeading.style.display = "none"; // Hide the question
     } else {
-        // Keep the "No" button size constant but move it outward
-        noButton.style.position = "relative";
-        noButton.style.left = `${noClickCount * 30}px`;
-        noButton.style.top = `${noClickCount * 15}px`;
+        // Gradually enlarge the "Yes" button
+        yesButton.style.transform = `scale(${1 + noClickCount * 0.5})`;
 
-        // Enlarge the "Yes" button
-        yesButton.style.transform = `scale(${1 + noClickCount * 1})`;
+        // Dynamically adjust the position of the "No" button
+        noButton.style.transform = `translate(${noClickCount * 20}px, ${noClickCount * 10}px)`;
+        
+        // Keep buttons aligned with the heading above
+        buttonsContainer.style.marginTop = `${noClickCount * 10}px`;
     }
 }
